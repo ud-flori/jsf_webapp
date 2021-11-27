@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<ui:composition template="layout.xhtml">
+	<ui:define name="content">
+		<h:form id="bookForm">
+			<p:panel header="Add book" id="bookInfoPnl">
+				<h:panelGrid columns="2">
+					<p:outputLabel for="name" value="Book name: " />
+					<p:inputText id="name" size="40"
+						value="#{bookController.bookUiTO.bookName}" required="true"
+						requiredMessage="Please enter the book details! " />
+					<p:outputLabel for="writer" value="Writer: " />
+					<p:inputText id="writer"
+						value="#{bookController.bookUiTO.writer}" size="40"
+						required="true" label="Writer">
+					</p:inputText>
+					<p:outputLabel for="description" value="Short description: " />
+					<p:inputTextarea id="description" rows="4" cols="50"
+						value="#{bookController.bookUiTO.description}" />
+					<p:outputLabel for="categoryUITO" value="Category: " />
+					<p:selectOneMenu id="categoryUITO"
+						value="#{bookController.bookUiTO.categoryUITO}"
+						style="width:150px" converter="#{deptConverter}">
+						<f:selectItems value="#{bookController.categoryUiToList}"
+							var="categoryUITO" itemLabel="#{categoryUITO.catName}"
+							itemValue="#{categoryUITO}" />
+
+					</p:selectOneMenu>
+					<h:commandButton value="#{bookController.actionLabel}"
+						action="#{bookController.doSaveInfoBook}">
+						<f:ajax execute="bookForm" render="booklist bookInfoPnl" />
+					</h:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<p:panel header="Available Books" id="booklist">
+				<p:dataTable id="table" var="book"
+					value="#{bookController.bookUiToList}">
+					<p:column>
+						<f:facet name="header"># Book Id</f:facet>
+						<h:outputText value="#{book.bookId}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Name</f:facet>
+						<h:outputText value="#{book.bookName}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Short description </f:facet>
+						<h:outputText value="#{book.description}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Writer </f:facet>
+						<h:outputText value="#{book.writer}">
+						</h:outputText>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Category </f:facet>
+						<h:outputText value="#{book.categoryUITO.catName}" />
+					</p:column>
+					<p:column id="action">
+						<f:facet name="header">Action</f:facet>
+						<h:commandLink value="Edit"
+							action="#{bookController.editBook(book)}">
+							<f:ajax execute="action" render="bookForm" />
+						</h:commandLink> /
+						  <sec:authorize access="hasRole('ROLE_ADMIN')">
+							<h:commandLink value="Delete"
+								action="#{bookController.deleteBook(book)}">
+								<f:ajax execute="action" render="table" />
+							</h:commandLink>
+						</sec:authorize>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
