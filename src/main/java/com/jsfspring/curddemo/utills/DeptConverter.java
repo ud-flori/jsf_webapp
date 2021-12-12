@@ -40,7 +40,7 @@ public class DeptConverter implements Converter {
 			return dept.getCatName();
 		} else {
 			StringBuilder sbError = new StringBuilder("The object of class ");
-			sbError.append(obj.getClass().getName()).append(" is not of DepartmentUITO");
+			sbError.append(obj.getClass().getName()).append(" is not of CategoryUITO");
 			throw new ClassCastException(sbError.toString());
 		}
 	}

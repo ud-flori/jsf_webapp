@@ -39,11 +39,6 @@ public class BooksController {
 
 	private List<CategoryUITO> categoryUiToList;
 
-	/**
-	 * add or update new Record in DB
-	 * 
-	 * @return
-	 */
 	public void doSaveInfoBook() {
 		System.out.println(this.getBookUiTO());
 		booksService.doSaveBook(this.getBookUiTO());

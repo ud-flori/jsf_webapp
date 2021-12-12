@@ -10,9 +10,6 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mates on 2020. 11. 05..
- */
 @Controller("catController")
 @SessionScope
 public class CategoryController {

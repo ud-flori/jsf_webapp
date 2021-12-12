@@ -5,15 +5,9 @@ package com.jsfspring.curddemo.uito;
 
 import java.io.Serializable;
 
-/**
- * @author s727953
- *
- */
 public class BookUITO implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 4840260415183676656L;
 	private Long bookId;
 	private String bookName;

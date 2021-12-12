@@ -9,19 +9,11 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.NamedQuery;
 
-/**
- * @author s727953
- *
- */
-
 @Entity
 @Table(name = "BOOKS")
 @NamedQuery(name = "BookDTO.findAll", query = "SELECT a FROM BookDTO a")
 public class BookDTO implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
